@@ -5,7 +5,8 @@
 name := "MISE"
 version := "0.1"
 scalaVersion := "2.11.8"
-mainClass := Some("dmf.stream.mutinf.MISECommandLineInterface")
+
+mainClass in (Compile, run) := Some("dmf.stream.mutinf.MISECommandLineInterface")
 
 // ---------------------------------------------------------------------------
 // dependencies
