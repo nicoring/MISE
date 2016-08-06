@@ -1,0 +1,58 @@
+<configuration>
+
+  <!-- 
+  Useful encoder patterns:
+  [%file:%line] gives source file location
+  
+  Examples
+  %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n      => 09:51:41.146 [main] ERROR guitar3D.Helpers$ - Exception while reading file:
+  %date %level [%thread] %logger{10} [%file:%line] %msg%n       => 2014-04-05 09:57:08,852 ERROR [main] g.Helpers$ [Helpers.scala:55] Exception while reading file:
+  %d{HH:mm:ss} [%thread] %-5p %class{0}.%method:%L - %m%n       => 09:55:53 [main] ERROR Helpers$.loadFile:55 - Exception while reading file:
+  
+  Reference:
+    http://logback.qos.ch/manual/layouts.html#conversionWord
+    http://logback.qos.ch/manual/layouts.html#formatModifiers 
+    http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout
+   -->
+
+  <define name="logDir" class="dmf.LogDirPropertyDefiner"/>
+
+  <appender name="GlobalFile" class="ch.qos.logback.core.FileAppender">
+    <file>${logDir}/general.log</file>
+    <param name="Append" value="false"/>
+    <encoder>
+      <pattern>%-15.15thread [%-5p] %-25.25logger{0} | %m%n</pattern>
+      <!--  
+      <pattern>%d{HH:mm:ss} [%thread] %-5p %class{0}.%method:%L - %m%n</pattern> 
+      -->
+    </encoder>
+  </appender>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss} [%thread] %-5p %class{0}.%method:%L - %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="SimplerSTDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%-15.15thread [%-5p] %-25.25logger{0} | %m%n</pattern>
+    </encoder>
+  </appender>
+      
+  <logger name="dmf" level="DEBUG">
+  </logger>
+
+  <logger name="dmc2014" level="DEBUG">
+  </logger>
+  <logger name="dmc2014.ClassifierDecisionTree" level="INFO">
+  </logger>
+  <logger name="dmc2014.TreeFactory" level="INFO">
+  </logger>
+    
+  <root level="DEBUG">
+    <appender-ref ref="SimplerSTDOUT" />     
+    <appender-ref ref="GlobalFile" />
+  </root>  
+  
+</configuration>
