@@ -2,6 +2,7 @@ package dmf.stream
 
 import org.scalatest.FunSpec
 import org.scalatest.matchers.ShouldMatchers
+import scala.language.postfixOps
 
 class TestStream extends FunSpec with ShouldMatchers {
 
