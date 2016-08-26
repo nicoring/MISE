@@ -52,6 +52,7 @@ object WindowSpec {
 }
 
 
+case class EstimationResult(mi: Double, statSize: Long)
 
 /**
  * EstimatorStream
@@ -59,8 +60,6 @@ object WindowSpec {
  */
 trait EstimatorStream {
 
-  case class EstimationResult(mi: Double, statSize: Long)
-  
   def addData(x: Double, y: Double)
   def length: Long
   
@@ -70,7 +69,8 @@ trait EstimatorStream {
    *  - size of statistic that was used to perform the estimation
    */
   def miQuery(w: WindowSpec): EstimationResult = {
-    assert(w.numDrop + w.numTake <= length && w.numTake >= minPossibleQuerySize)
+    require(w.numDrop + w.numTake <= length, "Estimation interval out of bounds")
+    require(w.numTake >= minPossibleQuerySize, "Length of estimation interval is shorter than possible")
     miQueryImpl(w)
   }
   protected def miQueryImpl(w: WindowSpec): EstimationResult
