@@ -1,18 +1,16 @@
 package dmf
 
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSpec, Matchers}
 
-import dmf._
 
-class TestHelpers extends FunSpec with ShouldMatchers {
+class TestHelpers extends FunSpec with Matchers {
 
   val verbose = false
   val logging = Helpers.outputDummy
   
   describe("  the helper functions") {
     it("should provide a power set function") {
-      Helpers.powerSet(Set()) should equal (Set(Set()))
+      Helpers.powerSet(Set[Int]()) should equal (Set(Set[Int]()))
       Helpers.powerSet(Set(1)) should equal (Set(Set(), Set(1)))
       Helpers.powerSet(Set(1,2)) should equal (Set(Set(), Set(1), Set(2), Set(1,2)))
       Helpers.powerSet(Set(1,2,3)) should equal (Set(Set(), Set(1), Set(2), Set(3), Set(1,2), Set(2,3), Set(1,3), Set(1,2,3)))
@@ -67,8 +65,8 @@ class TestHelpers extends FunSpec with ShouldMatchers {
       meanvar.add(seq :_*)
       import dmf.Implicits._
       val precision = 0.00000001
-      seq.mean should be (meanvar.mean plusOrMinus precision) 
-      seq.vari should be (meanvar.vari plusOrMinus precision)
+      seq.mean should be (meanvar.mean +- precision)
+      seq.vari should be (meanvar.vari +- precision)
     }
   }
   

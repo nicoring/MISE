@@ -1,10 +1,11 @@
 package dmf.stream
 
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSpec, Matchers}
+
 import scala.language.postfixOps
 
-class TestStream extends FunSpec with ShouldMatchers {
+
+class TestStream extends FunSpec with Matchers {
 
   def genTestStream() = new Stream {
     val knownLength = None
@@ -36,7 +37,7 @@ class TestStream extends FunSpec with ShouldMatchers {
       slst.length should be (10)
       sitrb.count(_ => true) should be (10)
       sitrt.length should be (10)
-      sarr(3).data(0) should be (4.0 plusOrMinus 0.01)
+      sarr(3).data(0) should be (4.0 +- 0.01)
     }
     
     it("should provide 'take'") {
@@ -53,10 +54,10 @@ class TestStream extends FunSpec with ShouldMatchers {
       genTestStream().buffered.buffered.toIterator.buffered.length should be (10)
       genTestStream().take(10).buffered.length should be (10)
       // content invariance check
-      genTestStream().buffered.toArray.apply(3).data(0) should be (4.0 plusOrMinus 0.01)
-      genTestStream().buffered.buffered.toArray.apply(3).data(0) should be (4.0 plusOrMinus 0.01)
-      genTestStream().buffered.buffered.toIterator.buffered.toArray.apply(3).data(0) should be (4.0 plusOrMinus 0.01)
-      genTestStream().take(10).buffered.toArray.apply(3).data(0) should be (4.0 plusOrMinus 0.01)
+      genTestStream().buffered.toArray.apply(3).data(0) should be (4.0 +- 0.01)
+      genTestStream().buffered.buffered.toArray.apply(3).data(0) should be (4.0 +- 0.01)
+      genTestStream().buffered.buffered.toIterator.buffered.toArray.apply(3).data(0) should be (4.0 +- 0.01)
+      genTestStream().take(10).buffered.toArray.apply(3).data(0) should be (4.0 +- 0.01)
     }
     
     it("should allow subspace projections") {
@@ -64,7 +65,7 @@ class TestStream extends FunSpec with ShouldMatchers {
       genTestStream().attributesReduce(Array(1)).dim should be (1)
       genTestStream().attributesReduce(Array(1)).attrNames.length should be (1)
       genTestStream().attributesReduce(Array(1)).toArray.apply(3).data.length should be (1)
-      genTestStream().attributesReduce(Array(1)).toArray.apply(3).data(0) should be (7.0 plusOrMinus 0.01)
+      genTestStream().attributesReduce(Array(1)).toArray.apply(3).data(0) should be (7.0 +- 0.01)
     }      
   
   }

@@ -16,7 +16,7 @@ mainClass in (Compile, run) := Some("dmf.stream.mutinf.MISECommandLineInterface"
 libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.0.3"
 
 // *** ScalaTest
-libraryDependencies += "org.scalatest" % "scalatest_2.10" % "1.9.1" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 
 // *** Scala IO
 // successor of scalax.io: http://jesseeichar.github.com/scala-io-doc/0.4.0/index.html#!/getting-started

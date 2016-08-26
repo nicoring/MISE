@@ -1,10 +1,11 @@
 package dmf.stream.mutinf
 
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSpec, Matchers}
+
 import scala.util.Random
 
-class TestNeighbor2D extends FunSpec with ShouldMatchers {
+
+class TestNeighbor2D extends FunSpec with Matchers {
 
   describe("Neighbor2D"){
     

@@ -1,13 +1,12 @@
 package dmf
 
+import org.scalatest.{FunSpec, Matchers}
 
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
 import scala.util.Random
 //import scala.Ordering
 
 
-class TestBinarySearch extends FunSpec with ShouldMatchers {
+class TestBinarySearch extends FunSpec with Matchers {
 
   val iterations = 10
   val valueRange = 3

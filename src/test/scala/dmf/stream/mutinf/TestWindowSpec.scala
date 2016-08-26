@@ -1,16 +1,12 @@
 package dmf.stream.mutinf
 
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
-import scala.util.Random
+import org.scalatest.{FunSpec, Matchers}
 
 
+class TestWindowSpec extends FunSpec with Matchers {
 
-class TestWindowSpec extends FunSpec with ShouldMatchers {
-
-  def reference(nD: Int, nT: Int) = Iterator.iterate(0L)(_+1L)
-                                            .drop(nD)
-                                            .take(nT)
+  def reference(nD: Int, nT: Int) = Iterator.iterate(0L)(_ + 1L)
+                                            .slice(nD, nD + nT)
                                             .toSet
   def w(nD: Int, nT: Int) = new WindowSpec(nD, nT)
                                             
@@ -19,7 +15,7 @@ class TestWindowSpec extends FunSpec with ShouldMatchers {
     it("should correspond drop/take semantics: same indices") {
       for (nD <- Range(0, 10)) {
         for (nT <- Range(0, 10)) {
-          w(nD, nT).indices.toSet should equal (reference(nD, nT))
+          w(nD, nT).indices().toSet should equal (reference(nD, nT))
         }
       }
     }
@@ -27,7 +23,7 @@ class TestWindowSpec extends FunSpec with ShouldMatchers {
       for (nD <- Range(0, 10)) {
         for (nT <- Range(0, 10)) {
           w(nD, nT).size should equal (nT)
-          w(nD, nT).size should equal (w(nD, nT).indices.length)
+          w(nD, nT).size should equal (w(nD, nT).indices().length)
         }
       }
     }
@@ -49,7 +45,7 @@ class TestWindowSpec extends FunSpec with ShouldMatchers {
           val filteredByR = indices.filter(i => reference(nD, nT).contains(i))
           val filteredByW = indices.filter(i => w(nD, nT).indexFilter(i))
           filteredByW should equal (filteredByR)
-          filteredByW.toSet should equal (w(nD, nT).indices.toSet)
+          filteredByW.toSet should equal (w(nD, nT).indices().toSet)
         }
       }
     }
@@ -67,8 +63,8 @@ class TestWindowSpec extends FunSpec with ShouldMatchers {
         for (nT <- Range(0, 10)) {
           for (sl <- Range(nD+nT, 100)) {
             val w = WindowSpec.createReverse(sl, nD, nT)
-            val reference = Iterator.iterate(0L)(_+1L).take(sl).toList.reverse.drop(nD).take(nT).reverse // note reverse again in the end, since indices should still be INCREASING
-            w.indices.toList should equal (reference)
+            val reference = Iterator.iterate(0L)(_ + 1L).take(sl).toList.reverse.slice(nD, nD + nT).reverse // note reverse again in the end, since indices should still be INCREASING
+            w.indices().toList should equal (reference)
           }
         }
       }

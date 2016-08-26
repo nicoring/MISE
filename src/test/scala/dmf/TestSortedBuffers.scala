@@ -1,14 +1,11 @@
 package dmf
 
+import org.scalatest.{FunSpec, Matchers}
 
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
 
-import dmf._
+class TestSortedBuffers extends FunSpec with Matchers {
 
-class TestSortedBuffers extends FunSpec with ShouldMatchers {
-
-  describe("  a sorted buffer") {
+  describe("Sorted buffer") {
 
     /*
     val buffer = new SortedBuffer[Double](5)(new Ordering[Double]{
@@ -74,7 +71,9 @@ class TestSortedBuffers extends FunSpec with ShouldMatchers {
       buffer.add(new Neighbor(1, 1.0)) should equal (true)
       buffer.max should equal (new Neighbor(1, 1.0))
       buffer.min should equal (new Neighbor(1, 1.0))
-      buffer.add(new Neighbor(1, 1.0)) should equal (false) // Note: if the added element is the same as the last object, the output will be a reject, although it is also possible to consider it the other way around 
+      /* Note: if the added element is the same as the last object, the output will be a reject,
+         although it is also possible to consider it the other way around */
+      buffer.add(new Neighbor(1, 1.0)) should equal (false)
       buffer.add(new Neighbor(1, 0.5)) should equal (true)
       buffer.add(new Neighbor(1, 0.3)) should equal (true)
       buffer.add(new Neighbor(1, 0.8)) should equal (true)

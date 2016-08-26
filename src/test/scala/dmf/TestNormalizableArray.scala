@@ -1,11 +1,10 @@
 package dmf
 
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
-
+import org.scalatest.{FunSpec, Matchers}
 import dmf.Implicits._
 
-class TestNormalizableArray extends FunSpec with ShouldMatchers {
+
+class TestNormalizableArray extends FunSpec with Matchers {
 
   val numTests = 10
   def randomArray() = Array.fill(100)(scala.util.Random.nextDouble())
@@ -15,14 +14,14 @@ class TestNormalizableArray extends FunSpec with ShouldMatchers {
     it("should provide sum normalization") {
       for (i <- 0 until numTests) {
         val arr = randomArray()
-        arr.normalizedSumOne.sum should be (1.0 plusOrMinus 0.001)
+        arr.normalizedSumOne.sum should be (1.0 +- 0.001)
       }
     }
     
     it("should provide mean normalization") {
       for (i <- 0 until numTests) {
         val arr = randomArray()
-        arr.normalizedMeanOne.mean should be (1.0 plusOrMinus 0.001)
+        arr.normalizedMeanOne.mean should be (1.0 +- 0.001)
       }
     }
   
@@ -30,9 +29,9 @@ class TestNormalizableArray extends FunSpec with ShouldMatchers {
       for (i <- 0 until numTests) {
         val arr = randomArray()
         val narr = arr.normalizedUnitVariance
-        narr.mean should be (0.0 plusOrMinus 0.001)
-        narr.vari should be (1.0 plusOrMinus 0.001)
-        narr.sdev should be (1.0 plusOrMinus 0.001)
+        narr.mean should be (0.0 +- 0.001)
+        narr.vari should be (1.0 +- 0.001)
+        narr.sdev should be (1.0 +- 0.001)
       }
     }
 
